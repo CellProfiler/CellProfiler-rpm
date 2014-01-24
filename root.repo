@@ -1,0 +1,5 @@
+[local]
+name=Temporary repo for CellProfiler build
+baseurl=file:///root/repo
+enabled=1
+gpgcheck=0

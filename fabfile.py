@@ -242,3 +242,12 @@ def install_cp():
     run("yum makecache")
     run("yum -y install cellprofiler")
 
+@with_settings(user="root")
+def test_public_cp_centos():
+    run("yum -y update")
+    set_up_user("johndoe")
+    run("yum install -q -y xauth")
+    use_public_repo()
+    run("yum makecache")
+    run("yum -y install cellprofiler")
+

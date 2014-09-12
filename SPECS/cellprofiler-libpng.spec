@@ -15,7 +15,7 @@ Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
 Requires: cellprofiler-zlib
-BuildRequires: cellprofiler-zlib-devel gcc
+BuildRequires: cellprofiler-zlib cellprofiler-zlib-devel gcc
 
 %description
 libpng installed under /usr/cellprofiler
@@ -36,7 +36,7 @@ libpng development files installed under /usr/cellprofiler
 
 %build
 
-./configure --prefix %{pref} LDFLAGS="-L%{pref}/lib"
+./configure --prefix %{pref} LDFLAGS="-L%{pref}/lib" CFLAGS="-I%{pref}/include"
 make CFLAGS=-I/usr/cellprofiler/include
 
 

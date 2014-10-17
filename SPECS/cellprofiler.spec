@@ -1,8 +1,8 @@
 %define pkgname cellprofiler
 %define pyversion 2.7
-%define version 2.1.0.Release
-%define release 1
-%define tarname 0c7fb94
+%define version 2.1.0.408
+%define release 1.20140912git216dbe7
+%define tarname CellProfiler-216dbe7c3eb69dfb75291d974c4249d74994f9d2
 %define pref /usr/cellprofiler
 %define python %{pref}/bin/python
 
@@ -11,23 +11,21 @@ Summary:   Cell image analysis software
 Version:   %{version}
 Release:   %{release}
 Source0:   %{tarname}.tar.gz
-Patch0:    cellprofiler-avoid-blank-libdir-for-libjvm.diff
-Patch1:    cellprofiler-frozen.diff
+Patch0:    cellprofiler-frozen.diff
 License:   GPLv2
 URL:       http://www.cellprofiler.org/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-cython cellprofiler-python cellprofiler-ilastik cellprofiler-decorator cellprofiler-h5py cellprofiler-matplotlib cellprofiler-mysqlpython cellprofiler-scipy cellprofiler-pysqlite cellprofiler-setuptools cellprofiler-wxpython cellprofiler-pyzmq cellprofiler-jdk cellprofiler-pil xorg-x11-fonts-Type1 liberation-fonts-common liberation-sans-fonts
-BuildRequires: gcc cellprofiler-numpy-devel   cellprofiler-cython cellprofiler-python cellprofiler-ilastik cellprofiler-decorator cellprofiler-h5py cellprofiler-matplotlib cellprofiler-mysqlpython cellprofiler-scipy cellprofiler-pysqlite cellprofiler-setuptools cellprofiler-wxpython cellprofiler-pyzmq cellprofiler-jdk
+Requires:  cellprofiler-cython cellprofiler-python cellprofiler-ilastik cellprofiler-decorator cellprofiler-h5py cellprofiler-matplotlib cellprofiler-mysqlpython cellprofiler-scipy cellprofiler-pysqlite cellprofiler-setuptools cellprofiler-wxpython cellprofiler-pyzmq cellprofiler-jdk cellprofiler-pil xorg-x11-fonts-Type1 liberation-fonts-common liberation-sans-fonts cellprofiler-bioformats
+BuildRequires: gcc cellprofiler-numpy-devel   cellprofiler-cython cellprofiler-python cellprofiler-ilastik cellprofiler-decorator cellprofiler-h5py cellprofiler-matplotlib cellprofiler-mysqlpython cellprofiler-scipy cellprofiler-pysqlite cellprofiler-setuptools cellprofiler-wxpython cellprofiler-pyzmq cellprofiler-jdk cellprofiler-bioformats
 
 %description
 Cell image analysis software
 
 %prep
 
-%setup -q -n CellProfiler-%{tarname}
-%patch0
+%setup -q -n %{tarname}
 
 %build
 
@@ -71,7 +69,7 @@ PATH=%{pref}/bin:%{pref}/jdk/bin:$PATH \
 
 echo "version_string = '`date +%%Y-%%m-%%dT%%H:%%M:%%S` %{version}'" > $RPM_BUILD_ROOT%{pref}/src/CellProfiler/cellprofiler/frozen_version.py
 
-mkdir $RPM_BUILD_ROOT/usr/bin
+mkdir -p $RPM_BUILD_ROOT/usr/bin
 cp usr-bin-cellprofiler $RPM_BUILD_ROOT/usr/bin/cellprofiler
 chmod 755 $RPM_BUILD_ROOT/usr/bin/cellprofiler
 
@@ -89,7 +87,6 @@ chmod 755 $RPM_BUILD_ROOT/usr/bin/cellprofiler
 %{pref}/lib/python%{pyversion}/site-packages/_lapjv.so
 %{pref}/lib/python%{pyversion}/site-packages/_propagate.so
 %{pref}/lib/python%{pyversion}/site-packages/_watershed.so
-%{pref}/lib/python%{pyversion}/site-packages/javabridge.so
 %{pref}/lib/python%{pyversion}/site-packages/cpmath-0.0.0-py2.7.egg-info
 %{pref}/lib/python%{pyversion}/site-packages/utilities-0.0.0-py2.7.egg-info
 /usr/bin/cellprofiler

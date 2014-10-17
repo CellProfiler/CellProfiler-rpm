@@ -1,5 +1,5 @@
 %define pkgname cellprofiler-bioformats
-%define version 1.0.1
+%define version 1.0.3
 %define release 1
 %define tarname python-bioformats
 %define pref /usr/cellprofiler

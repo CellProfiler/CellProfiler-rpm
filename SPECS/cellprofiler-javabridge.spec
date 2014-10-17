@@ -1,5 +1,5 @@
 %define pkgname cellprofiler-javabridge
-%define version 1.0.8
+%define version 1.0.9
 %define release 1
 %define tarname javabridge
 %define pref /usr/cellprofiler

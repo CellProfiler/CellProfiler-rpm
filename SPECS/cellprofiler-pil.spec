@@ -1,7 +1,7 @@
 %define pkgname cellprofiler-pil
 %define pyversion 2.7
 %define version 1.1.7
-%define release 1
+%define release 2
 %define tarname Imaging
 %define pref /usr/cellprofiler
 
@@ -16,7 +16,7 @@ Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
 Requires:  cellprofiler-python cellprofiler-libpng cellprofiler-libjpeg cellprofiler-libtiff
-BuildRequires: gcc   cellprofiler-python cellprofiler-libpng-devel cellprofiler-libjpeg-devel cellprofiler-libtiff-devel
+BuildRequires: gcc   cellprofiler-python cellprofiler-libpng-devel cellprofiler-libjpeg-devel cellprofiler-libtiff-devel cellprofiler-zlib-devel
 
 %description
 pil installed under /usr/cellprofiler

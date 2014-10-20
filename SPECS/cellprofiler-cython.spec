@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-cython
 %define pyversion 2.7
-%define version 0.12.1
+%define version 0.20.2
 %define release 1
 %define tarname Cython
 %define pref /usr/cellprofiler
@@ -47,6 +47,7 @@ cython installed under /usr/cellprofiler
 %{pref}/lib/python2.7/site-packages/Cython
 %{pref}/lib/python2.7/site-packages/cython.py
 %{pref}/lib/python2.7/site-packages/cython.pyc
-%{pref}/lib/python2.7/site-packages/Cython-0.12.1-py2.7.egg-info
+%{pref}/lib/python2.7/site-packages/Cython-0.20.2-py2.7.egg-info
 %{pref}/bin/cython
+%{pref}/bin/cygdb
 

@@ -7,6 +7,11 @@
 #
 
 import os.path
+import urllib2
+import json
+import re
+import datetime
+from StringIO import StringIO
 from fabric.api import env, settings, run, put, get, local
 from fabric.decorators import with_settings
 from fabric.contrib.project import rsync_project
@@ -195,6 +200,9 @@ def maybe_build_all_rpms():
             'cellprofiler-ilastik',
             'cellprofiler-pyzmq',
             'cellprofiler-jdk',
+            'cellprofiler-javabridge',
+            'cellprofiler-bioformats',
+            'cellprofiler-scikit-learn',
             'cellprofiler'
     ]:
         maybe_build_rpm(basename)
@@ -216,7 +224,61 @@ def build_cellprofiler_only():
     run("cd rpmbuild/SOURCES; curl -s -L -O https://github.com/CellProfiler/CellProfiler/archive/0c7fb94.tar.gz")
     build_rpm("cellprofiler")
     pull()
-    
+
+def build_cellprofiler_version(commit, token):
+    """Builds an RPM for a particular version of CellProfiler
+
+    commit - the Git hash tag of the commit
+    token - an OAuth personal access token from github
+
+    Go to https://github.com/settings/applications to generate one
+    """
+    restore_state()
+    run("rm -rf rpmbuild/RPMS")
+    run("rm -rf rpmbuild/BUILD")
+    run("mkdir -p rpmbuild/SPECS")
+    tag, count, commit_sha = _github_describe(
+        "CellProfiler", "CellProfiler", commit, token)
+    print "Using tag=%s, count=%d, commit=%s" % (tag, count, commit_sha)
+    use_public_repo()
+    deploy_build_machine()
+    push_sources()
+    run("curl -s -L -o rpmbuild/SOURCES/cellprofiler-%s.tar.gz https://github.com/CellProfiler/CellProfiler/archive/%s.tar.gz" % (commit, commit_sha))
+    spec = _get("https://github.com/CellProfiler/CellProfiler/raw/%s/jenkins/linux/cellprofiler-centos6.spec" % commit_sha)
+    if tag.endswith("-SNAPSHOT"):
+        tag = tag[:-len("-SNAPSHOT")]
+        snapshot = "SNAPSHOT"
+    else:
+        snapshot = ""
+    today = datetime.date.today()
+    release = "0.%d%02d%02dgit%s%s" % (today.year, today.month, today.day,
+                                       commit_sha[:10], snapshot)
+    #
+    # First, replace the tarball name with the name that's downloaded
+    #
+    spec = spec.replace("%define tarname cellprofiler",
+                        "%%define tarname cellprofiler-%s" % commit)
+    #
+    # Then, replace the %setup command with one that anticipates
+    # where the tarball will spew
+    #
+    spec = spec.replace(
+        "%setup -q -n CellProfiler",
+        "%%setup -q -n CellProfiler-%s" % commit_sha)
+    parts = ["%%define version %s.%d" % (tag, count),
+             "%%define release %s" % release,
+             spec]
+    spec = "\n".join(parts)
+    put(local_path=StringIO(spec), 
+        remote_path="rpmbuild/SPECS/cellprofiler-%s.spec" % commit)
+    with settings(user="root"):
+        run("yum-builddep -q -y ~cpbuild/rpmbuild/SPECS/cellprofiler-%s.spec" % commit)
+    run("rpmbuild -ba rpmbuild/SPECS/cellprofiler-%s.spec" % commit)
+    with settings(user="root"):
+        run("cp ~cpbuild/rpmbuild/RPMS/*/*.rpm /root/repo/")
+        run("createrepo /root/repo")
+        run("yum makecache")
+    pull()
 
 def deploy_test_machine():
     """
@@ -251,3 +313,51 @@ def test_public_cp_centos():
     run("yum makecache")
     run("yum -y install cellprofiler")
 
+def _github_describe(owner, repo, commit, token):
+    """Perform a git describe via the github URL
+    
+    owner - name of the repository owner on Github
+    repo - name of the repository
+    commit - the Git hash of the commit
+    token - the OAUTH access token that gives us unlimited use of the api
+    
+    returns a tuple of tag name, commits past the tag and the full GIT hash
+    
+    if there is no tag among the parents, 
+    """
+    tags = _make_request(owner, repo, token, "tags")
+    tags = dict([(tag["commit"]["sha"], tag) for tag in tags])
+    current_commit = _make_request(owner, repo, token, "commits", commit)
+    commit_sha = current_commit["sha"]
+    def describe_fn(owner, repo, current_commit):
+        sha = current_commit["sha"]
+        if sha in tags:
+            tag = tags[sha]
+            return tag["name"], 0
+        parents = current_commit["parents"]
+        for parent in parents:
+            parent_commit = _make_request(owner, repo, token, "commits", parent["sha"])
+            tag, count = describe_fn(owner, repo, parent_commit)
+            if tag is not None:
+                return tag, count+1
+        return None, None
+    tag, count = describe_fn(owner, repo, current_commit)
+    return tag, count, commit_sha
+
+def _make_request(owner, repo, token, *args):
+    url = "https://api.github.com/repos/%s/%s/" % (owner, repo)
+    url += "/".join(args)
+    url += "?access_token=%s"%token
+    data = _get(url)
+    return json.loads(data)
+
+def _get(url):
+    fd = urllib2.urlopen(url)
+    data = ""
+    while True:
+        part = fd.read()
+        if len(part) == 0:
+            break
+        data += part
+    fd.close()
+    return data

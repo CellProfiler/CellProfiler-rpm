@@ -99,6 +99,14 @@ SPECS
     $ cd ..
     $ rm -rf foo
 
+## How to build a particular version
+ 1. Create an OAUTH token at github.com (needed to allow the script to
+     make unlimited calls to the github API). Go to
+     https://github.com/settings/applications and create a personal access
+     token with all permissions unchecked.
+ 2. Create and cd into a temporary directory
+ 3. Run fab like this:
+    $ fab -H 192.168.xxx.xxx build_cellprofiler_version:<git-hash>,<token>
 
 ## How to rebuild everything
 

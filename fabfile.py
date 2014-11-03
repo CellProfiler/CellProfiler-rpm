@@ -67,8 +67,8 @@ def restore_state():
 def _deploy(username, packages):
     restore_state()
     run("yum -y update")
-    set_up_user(username)
     run("yum install -q -y {packages}".format(packages=packages))
+    set_up_user(username)
     run("rm -rf /root/repo")
     run("mkdir /root/repo")
     run("createrepo /root/repo")
@@ -84,7 +84,14 @@ def deploy_build_machine():
     the build machine..
 
     """
-    _deploy("cpbuild", "rpm-build yum-utils createrepo rsync")
+    _deploy("cpbuild", "rpm-build yum-utils createrepo rsync sudo tar")
+
+def _port_string(env):
+    """Incantation to convince rsync to use a different port."""
+    if env.port is None:
+        return ''
+    else:
+        return "-e 'ssh -p {port}'".format(port=env.port)
  
 @with_settings(user="cpbuild")
 def push_sources():
@@ -95,7 +102,7 @@ def push_sources():
 
     """
     run("mkdir -p rpmbuild/SOURCES")
-    local("rsync -avz --delete {basedir}/SOURCES/ cpbuild@{host}:rpmbuild/SOURCES/".format(basedir=basedir, host=env.host))
+    local("rsync -avz {port_string} --delete {basedir}/SOURCES/ cpbuild@{host}:rpmbuild/SOURCES/".format(basedir=basedir, host=env.host, port_string=_port_string(env)))
 
 @with_settings(user="root")
 def push(source="."):
@@ -106,7 +113,7 @@ def push(source="."):
     same RPMs.
 
     """
-    local("rsync -avz --include='*.rpm' --exclude='*' --delete . root@{host}:/root/repo/".format(host=env.host))
+    local("rsync -avz {port_string} --include='*.rpm' --exclude='*' --delete . root@{host}:/root/repo/".format(host=env.host, port_string=_port_string(env)))
     rsync_project("/root/repo/", source)
     run("createrepo /root/repo")
     run("chmod -R o-w+r /root/repo")
@@ -119,7 +126,7 @@ def pull():
     be here, ensuring that the directories contain the same RPMs.
 
     """
-    local("rsync -avz --include='*.rpm' --exclude='*' --delete root@{host}:/root/repo/ .".format(host=env.host))
+    local("rsync -avz {port_string} --include='*.rpm' --exclude='*' --delete root@{host}:/root/repo/ .".format(host=env.host, port_string=_port_string(env)))
 
 def build_rpm(basename):
     """

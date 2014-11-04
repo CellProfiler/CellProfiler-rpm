@@ -1,7 +1,7 @@
 %define pkgname cellprofiler-vigra
 %define pyversion 2.7
 %define version 1.7.1
-%define release 1
+%define release 2
 %define tarname vigra
 %define pref /usr/cellprofiler
 
@@ -15,8 +15,8 @@ URL:       http://hci.iwr.uni-heidelberg.de/vigra/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-python cellprofiler-numpy fftw cellprofiler-hdf5 cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg boost-python
-BuildRequires: cellprofiler-python cellprofiler-numpy-devel fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake gcc gcc-c++
+Requires:  cellprofiler-python cellprofiler-numpy = 1.9.0 fftw cellprofiler-hdf5 cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg boost-python
+BuildRequires: cellprofiler-python cellprofiler-numpy-devel = 1.9.0 fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake gcc gcc-c++
 
 %description
 vigra installed under /usr/cellprofiler

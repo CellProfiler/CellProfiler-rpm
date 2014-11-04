@@ -17,6 +17,7 @@ from fabric.decorators import with_settings
 from fabric.contrib.project import rsync_project
 
 env.user = "cpbuild"
+env.use_ssh_config = True
 
 # The linux_repositories directory
 basedir = os.path.dirname(__file__)
@@ -117,6 +118,7 @@ def push(source="."):
     rsync_project("/root/repo/", source)
     run("createrepo /root/repo")
     run("chmod -R o-w+r /root/repo")
+    run("yum makecache")
 
 @with_settings(user="root")
 def pull():
@@ -297,7 +299,7 @@ def deploy_test_machine():
     and then install CellProfiler with install_cp().
 
     """
-    _deploy("johndoe", "xauth rsync createrepo unzip")
+    _deploy("johndoe", "xauth rsync createrepo unzip sudo")
 
 @with_settings(user="root")
 def install_cp():
@@ -314,8 +316,8 @@ def install_cp():
 @with_settings(user="root")
 def test_public_cp_centos():
     run("yum -y update")
+    run("yum install -q -y xauth sudo")
     set_up_user("johndoe")
-    run("yum install -q -y xauth")
     use_public_repo()
     run("yum makecache")
     run("yum -y install cellprofiler")

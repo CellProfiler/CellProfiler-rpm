@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-javabridge
 %define version 1.0.9
-%define release 1
+%define release 2
 %define tarname javabridge
 %define pref /usr/cellprofiler
 
@@ -14,8 +14,8 @@ URL:       http://github.com/CellProfiler/python-javabridge/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-python cellprofiler-setuptools cellprofiler-numpy java-1.6.0-openjdk-devel
-BuildRequires: cellprofiler-python cellprofiler-setuptools cellprofiler-numpy gcc python-devel java-1.6.0-openjdk-devel cellprofiler-numpy-devel
+Requires:  cellprofiler-python cellprofiler-setuptools cellprofiler-numpy = 1.9.0 java-1.6.0-openjdk-devel
+BuildRequires: cellprofiler-python cellprofiler-setuptools cellprofiler-numpy = 1.9.0 gcc python-devel java-1.6.0-openjdk-devel cellprofiler-numpy-devel = 1.9.0
 
 %description
 python-javabridge installed under /usr/cellprofiler

@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-h5py
 %define version 2.2.0
-%define release 1
+%define release 2
 %define pref /usr/cellprofiler
 %define tarname h5py
 
@@ -15,8 +15,8 @@ Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 Group:     ?
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-zlib cellprofiler-numpy cellprofiler-hdf5
-BuildRequires: cellprofiler-numpy-devel gcc cellprofiler-hdf5-devel cellprofiler-cython
+Requires:  cellprofiler-zlib cellprofiler-numpy = 1.9.0 cellprofiler-hdf5
+BuildRequires: cellprofiler-numpy-devel = 1.9.0 gcc cellprofiler-hdf5-devel cellprofiler-cython
 
 %description
 h5py installed under /usr/cellprofiler

@@ -1,7 +1,7 @@
 %define pkgname cellprofiler-matplotlib
 %define pyversion 2.7
 %define version 1.0.1
-%define release 1
+%define release 2
 %define tarname matplotlib
 %define pref /usr/cellprofiler
 
@@ -15,8 +15,8 @@ URL:       http://sourceforge.net/projects/matplotlib
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  freetype cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg cellprofiler-python cellprofiler-numpy cellprofiler-wxpython2.8-gtk2-unicode cellprofiler-six cellprofiler-dateutil cellprofiler-pytz cellprofiler-six
-BuildRequires: gcc gcc-c++ freetype-devel cellprofiler-python cellprofiler-numpy-devel fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake cellprofiler-setuptools cellprofiler-wxpython2.8-devel-gtk2-unicode cellprofiler-six
+Requires:  freetype cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg cellprofiler-python cellprofiler-numpy = 1.9.0 cellprofiler-wxpython2.8-gtk2-unicode cellprofiler-six cellprofiler-dateutil cellprofiler-pytz cellprofiler-six
+BuildRequires: gcc gcc-c++ freetype-devel cellprofiler-python cellprofiler-numpy-devel = 1.9.0 fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake cellprofiler-setuptools cellprofiler-wxpython2.8-devel-gtk2-unicode cellprofiler-six
 
 %description
 matplotlib installed under /usr/cellprofiler

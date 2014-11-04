@@ -1,7 +1,7 @@
 %define pkgname cellprofiler-ilastik
 %define pyversion 2.7
 %define version 0.5.05
-%define release 3
+%define release 4
 %define tarname ilastik
 %define pref /usr/cellprofiler
 
@@ -16,8 +16,8 @@ URL:       http://klimt.iwr.uni-heidelberg.de/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-python cellprofiler-numpy fftw cellprofiler-hdf5 cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg boost-python cellprofiler-vigra cellprofiler-pyopengl cellprofiler-pyopengl-accelerate cellprofiler-pyqt-x11-gpl cellprofiler-qimage2ndarray
-BuildRequires: cellprofiler-python cellprofiler-numpy-devel fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake cellprofiler-setuptools
+Requires:  cellprofiler-python cellprofiler-numpy = 1.9.0 fftw cellprofiler-hdf5 cellprofiler-libpng cellprofiler-libtiff cellprofiler-libjpeg boost-python cellprofiler-vigra cellprofiler-pyopengl cellprofiler-pyopengl-accelerate cellprofiler-pyqt-x11-gpl cellprofiler-qimage2ndarray
+BuildRequires: cellprofiler-python cellprofiler-numpy-devel = 1.9.0 fftw-devel cellprofiler-hdf5-devel cellprofiler-libpng-devel cellprofiler-libtiff-devel cellprofiler-libjpeg-devel boost-python-devel cmake cellprofiler-setuptools
 
 %description
 ilastik installed under /usr/cellprofiler

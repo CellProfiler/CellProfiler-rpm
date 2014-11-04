@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-scikit-learn
 %define version 0.15.2
-%define release 1
+%define release 2
 %define tarname scikit-learn
 %define pref /usr/cellprofiler
 
@@ -14,8 +14,8 @@ URL:       http://scikit-learn.org
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-numpy cellprofiler-scipy
-BuildRequires: cellprofiler-numpy-devel gcc-c++
+Requires:  cellprofiler-numpy = 1.9.0 cellprofiler-scipy
+BuildRequires: cellprofiler-numpy-devel = 1.9.0 gcc-c++
 
 %description
 scikit-learn installed under /usr/cellprofiler

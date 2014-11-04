@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-pyqt-x11-gpl
 %define version 4.8.3
-%define release 1
+%define release 2
 %define tarname PyQt-x11-gpl
 %define pref /usr/cellprofiler
 
@@ -14,8 +14,8 @@ URL:       http://www.riverbankcomputing.com/software/pyqt/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-numpy cellprofiler-pyopengl-accelerate cellprofiler-pyopengl cellprofiler-sip qt4
-BuildRequires: qt4-devel cellprofiler-sip-devel make gcc-c++   cellprofiler-numpy cellprofiler-pyopengl-accelerate cellprofiler-pyopengl 
+Requires:  cellprofiler-numpy = 1.9.0 cellprofiler-pyopengl-accelerate cellprofiler-pyopengl cellprofiler-sip qt4
+BuildRequires: qt4-devel cellprofiler-sip-devel make gcc-c++   cellprofiler-numpy = 1.9.0 cellprofiler-pyopengl-accelerate cellprofiler-pyopengl 
 
 %description
 pyqt installed under /usr/cellprofiler

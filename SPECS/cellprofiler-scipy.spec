@@ -1,5 +1,5 @@
 %define pkgname cellprofiler-scipy
-%define version 0.10.1
+%define version 0.13.2
 %define release 1
 %define tarname scipy
 %define pref /usr/cellprofiler
@@ -14,8 +14,8 @@ URL:       http://www.scipy.org
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-numpy 
-BuildRequires: cellprofiler-numpy-devel cellprofiler-swig blas-devel lapack-devel atlas-devel gcc-c++
+Requires:  cellprofiler-numpy = 1.9.0
+BuildRequires: cellprofiler-numpy-devel = 1.9.0 cellprofiler-swig blas-devel lapack-devel atlas-devel gcc-c++
 
 %description
 scipy installed under /usr/cellprofiler
@@ -49,4 +49,4 @@ env ATLAS=%{pref}/lib FFTW=%{pref}/lib BLAS=%{pref}/lib \
 %files
 %defattr(-,root,root)
 %{pref}/lib/python2.7/site-packages/scipy
-%{pref}/lib/python2.7/site-packages/scipy-0.10.1-py2.7.egg-info
+%{pref}/lib/python2.7/site-packages/scipy-0.13.2-py2.7.egg-info

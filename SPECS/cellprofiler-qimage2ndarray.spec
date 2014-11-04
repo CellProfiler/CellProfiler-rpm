@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-qimage2ndarray
 %define version 1.0
-%define release 1
+%define release 2
 %define tarname qimage2ndarray
 %define pref /usr/cellprofiler
 
@@ -14,8 +14,8 @@ URL:       http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndar
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-numpy cellprofiler-pyqt-x11-gpl cellprofiler-sip
-BuildRequires: cellprofiler-pyqt-x11-gpl gcc gcc-c++ cellprofiler-sip-devel cellprofiler-numpy-devel qt4-devel 
+Requires:  cellprofiler-numpy = 1.9.0 cellprofiler-pyqt-x11-gpl cellprofiler-sip
+BuildRequires: cellprofiler-pyqt-x11-gpl gcc gcc-c++ cellprofiler-sip-devel cellprofiler-numpy-devel = 1.9.0 qt4-devel 
 
 %description
 qimage2ndarray installed under /usr/cellprofiler

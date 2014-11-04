@@ -1,6 +1,6 @@
 %define pkgname cellprofiler-pyopengl
 %define version 3.0.1
-%define release 2
+%define release 3
 %define tarname PyOpenGL
 %define pref /usr/cellprofiler
 
@@ -15,8 +15,8 @@ URL:       http://pyopengl.sourceforge.net/
 Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-python mesa-libGL cellprofiler-numpy
-BuildRequires: cellprofiler-numpy-devel
+Requires:  cellprofiler-python mesa-libGL cellprofiler-numpy = 1.9.0
+BuildRequires: cellprofiler-numpy-devel = 1.9.0
 
 %description
 pyopengl installed under /usr/cellprofiler

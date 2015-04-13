@@ -1,24 +1,25 @@
-%define pkgname cellprofiler-dateutil
-%define version 2.2
-%define release 2
-%define tarname python-dateutil
+%define pkgname cellprofiler-lxml
+%define version 3.4.2
+%define release 1
+%define tarname lxml
 %define pref /usr/cellprofiler
 
 Name:      %{pkgname}
-Summary:   dateutil
+Summary:   lxml
 Version:   %{version}
 Release:   %{release}
 Source0:   %{tarname}-%{version}.tar.gz
-License:   Simplified BSD
-URL:       http://labix.org/python-dateutil
-Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
+License:   BSD
+URL:       http://lxml.de/
+Packager:  Lee Kamentsky <leek@broadinstitute.org>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
 Requires:  cellprofiler-python cellprofiler-setuptools cellprofiler-six
-BuildRequires: cellprofiler-python cellprofiler-setuptools
+Requires:  libxml2 libxslt
+BuildRequires: cellprofiler-python cellprofiler-setuptools libxml2-devel libxslt-devel gcc-c++
 
 %description
-dateutil installed under /usr/cellprofiler
+lxml installed under /usr/cellprofiler
 
 
 %prep
@@ -42,5 +43,5 @@ dateutil installed under /usr/cellprofiler
 
 %files
 %defattr(-,root,root)
-%{pref}/lib/python2.7/site-packages/dateutil
-%{pref}/lib/python2.7/site-packages/python_dateutil-2.2-py2.7.egg-info
+%{pref}/lib/python2.7/site-packages/lxml
+%{pref}/lib/python2.7/site-packages/lxml-%{version}-py2.7.egg-info

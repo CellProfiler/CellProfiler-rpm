@@ -201,6 +201,7 @@ def maybe_build_all_rpms():
             'cellprofiler-pytz',
             'cellprofiler-six',
             'cellprofiler-matplotlib',
+			'cellprofiler-pandas',
             'cellprofiler-scipy',
             'cellprofiler-sip',
             'cellprofiler-pyqt-x11-gpl',

@@ -1,24 +1,24 @@
-%define pkgname cellprofiler-scikit-learn
-%define version 0.15.2
-%define release 2
-%define tarname scikit-learn
+%define pkgname cellprofiler-pandas
+%define version 0.16.0
+%define release 1
+%define tarname pandas
 %define pref /usr/cellprofiler
 
 Name:      %{pkgname}
-Summary:   scikit-learn
+Summary:   pandas
 Version:   %{version}
 Release:   %{release}
 Source0:   %{tarname}-%{version}.tar.gz
 License:   BSD
-URL:       http://scikit-learn.org
-Packager:  Vebjorn Ljosa <ljosa@broad.mit.edu>
+URL:       http://pandas.pydata.org
+Packager:  Lee Kamentsky <leek@broadinstitute.org>
 BuildRoot: %{_tmppath}/%{pkgname}-buildroot
 Prefix:    %{pref}
-Requires:  cellprofiler-numpy = 1.9.0 cellprofiler-scipy
-BuildRequires: cellprofiler-numpy-devel = 1.9.0 gcc-c++
+Requires:  cellprofiler-numpy = 1.9.0 cellprofiler-pytz cellprofiler-dateutil
+BuildRequires: cellprofiler-numpy-devel = 1.9.0 gcc-c++ cellprofiler-pytz cellprofiler-dateutil
 
 %description
-scikit-learn installed under /usr/cellprofiler
+pandas installed under /usr/cellprofiler
 
 
 %prep
@@ -35,7 +35,6 @@ env CFLAGS="$RPM_OPT_FLAGS" \
 
 %install
 
-#%{pref}/bin/python setup.py install --skip-build --root $RPM_BUILD_ROOT
 env CFLAGS="$RPM_OPT_FLAGS" \
     %{pref}/bin/python setup.py install --root $RPM_BUILD_ROOT
 
@@ -46,5 +45,5 @@ env CFLAGS="$RPM_OPT_FLAGS" \
 
 %files
 %defattr(-,root,root)
-%{pref}/lib/python2.7/site-packages/sklearn
-%{pref}/lib/python2.7/site-packages/scikit_learn-%{version}-py2.7.egg-info
+%{pref}/lib/python2.7/site-packages/pandas
+%{pref}/lib/python2.7/site-packages/pandas-%{version}-py2.7.egg-info

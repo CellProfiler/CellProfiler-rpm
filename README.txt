@@ -3,10 +3,26 @@ CellProfiler and its dependencies and publishing them on the web.
 
 SSH is set up to allow logging into the build machines without
 paswords, but there have been some problems with this due to a CentOS
-6 bug. If you are asked for a password, you can find it on the
-Passwords wiki page. Then, run `restorecon -R -v /root/.ssh` to make
+6 bug. You should make RSA public and private key files (id_rsa and id_rsa.pub)
+in the subdirectory, `ssh_keys`. Then, run `restorecon -R -v /root/.ssh` to make
 password-less login work on CentOS 6.
 
+## Environment
+
+Make sure to use Python 2.6 or 2.7, then activate the virtual environment
+
+	. venv/bin/activate
+
+## Changing Centos 6 RPM dependencies in CellProfiler
+
+CellProfiler has a spec file stored in its GIT repository:
+
+    jenkins/linux/cellprofiler-centos6.spec
+
+Each commit has its own set of dependencies because the
+spec file is part of the commit. Dependencies can be
+modified and added by editing the "Requires" and
+"BuildRequires" sections of the .spec file.
 
 ## Files and directories
 
@@ -178,6 +194,48 @@ SPECS
     $ cd ..
     $ rm -rf foo
 
+## How to build one thing
+
+ 0. Activate the virtualenv.
+
+    . venv/bin/activate
+
+ 1. Make a working directory. This directory will contain RPMs as you build
+    them and test; you will finally copy them to the website.
+
+    $ mkdir foo
+    $ cd foo
+
+ 2. Start a clean build machine by going to http://broad.io/imagingcloud,
+    logging in, and add a vApp based on the template "Cent OS 6 x64" in
+    the Build Catalog.
+
+ 3. Wait for the build machine to start and get its IP address,
+    192.168.195.XXX.
+
+ 4. Upgrade the operating system and install packages needed to build.
+
+    $ fab -H 192.168.195.XXX deploy_build_machine
+
+ 5. Copy the contents of the SOURCES directory to the build machine.
+
+    $ fab -H 192.168.195.XXX push_sources
+
+ 6. Push the existing RPMs to the build machine
+
+    $ fab -H 192.168.195.XXX push
+
+ 7. Use public repositories
+
+    $ fab -H 192.168.195.xxx use_public_repo
+
+ 8. Make the single RPM, for instance cellprofiler-foo
+
+   $ fab -H 192.168.195.XXX maybe_build_rpm:<package-name>
+
+ 9. Copy all the RPMs from the build machine.
+
+    $ fab -H 192.168.195.XXX pull
 
 ## Reindexing a yum repository
 

@@ -1,2 +1,8 @@
 *.pyc
 *~
+createrepo-0.3.6.tar.gz
+/centos6
+/htdocs
+/ssh_keys
+/SOURCES
+/venv

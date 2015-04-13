@@ -44,6 +44,7 @@ Requires:  cellprofiler-setuptools = 1.1.6-1
 Requires:  cellprofiler-vigra = 1.7.1-2
 Requires:  cellprofiler-wxpython = 2.8.11.0-1
 Requires:  xorg-x11-fonts-Type1 liberation-fonts-common liberation-sans-fonts
+Requires:  cellprofiler-nose
 
 BuildRequires: gcc
 BuildRequires: cellprofiler-hdf5-devel = 1.8.10patch1-1

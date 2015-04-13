@@ -1,0 +1,25 @@
+# https://bugzilla.redhat.com/show_bug.cgi?id=1036817
+--- Makefile.orig	2013-12-02 11:35:30.845787167 -0500
++++ Makefile	2013-12-02 11:45:34.233575027 -0500
+@@ -10,7 +10,11 @@
+ sbindir = ${exec_prefix}/sbin
+ libexecdir = ${exec_prefix}/libexec
+ datadir = ${prefix}/share
+-sysconfdir = ${prefix}/etc
++ifeq ($(prefix),/usr)
++    sysconfdir = /etc
++else
++    sysconfdir = $(prefix)/etc
++endif
+ sharedstatedir = ${prefix}/com
+ localstatedir = ${prefix}/var
+ libdir = ${exec_prefix}/lib
+@@ -26,7 +30,7 @@
+ top_builddir = 
+ 
+ # all dirs
+-DIRS = $(DESTDIR)$(bindir) $(DESTDIR)/etc $(DESTDIR)$(pkgdatadir)
++DIRS = $(DESTDIR)$(bindir) $(DESTDIR)$(sysconfdir) $(DESTDIR)$(pkgdatadir)
+ 
+ 
+ # INSTALL scripts 
